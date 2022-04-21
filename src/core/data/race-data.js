@@ -1,4 +1,4 @@
-const race_data_table = [
+const raceDataTable = [
   {
     id: 1000001,
     name: '新人类',
@@ -13,4 +13,4 @@ const race_data_table = [
   }
 ]
 
-export default race_data_table
+export default raceDataTable

@@ -1,12 +1,12 @@
-const weapon_data_table = [
+const weaponDataTable = [
   {
     id: 800001, // 800001 ~ 800500
     name: '合金剑',
     alias: 'Rigido Sword',
     lable: ['剑', '主手'],
-    equip_slot: 0,
-    min_level: 1,
-    max_level: 10,
+    equipSlot: 0,
+    minLevel: 1,
+    maxLevel: 10,
     base: {
       $att: 10,
       $pow: 5,
@@ -15,15 +15,15 @@ const weapon_data_table = [
   }
 ]
 
-const armor_data_table = [
+const armorDataTable = [
   {
     id: 800501,
     name: '布甲',
     alias: 'Cloth Armor',
     lable: ['护甲', '上衣'],
-    equip_slot: 3,
-    min_level: 1,
-    max_level: 10,
+    equipSlot: 3,
+    minLevel: 1,
+    maxLevel: 10,
     base: {
       $hp: 25,
       $vit: 7
@@ -31,9 +31,6 @@ const armor_data_table = [
   }
 ]
 
-const equipments_data_table = new Array().concat(
-  weapon_data_table,
-  armor_data_table
-)
+const equipmentsDataTable = new Array().concat(weaponDataTable, armorDataTable)
 
-export default equipments_data_table
+export default equipmentsDataTable

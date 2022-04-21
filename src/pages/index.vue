@@ -30,24 +30,26 @@ import _create_new_player from '~/core/create-player'
 import role_data_table from '~/core/data/role-data'
 import race_data_table from '~/core/data/race-data'
 import get_data from '~/core/get-data'
+
+import { usePlayerStore } from '~/store/player'
 import LZString from 'lz-string'
-import { computed } from 'vue'
 
 const player_name = $ref('')
 const player_role = $ref(get_data(900001))
 const player_race = $ref(get_data(1000001))
 
+const store = usePlayerStore()
+
 const create = () => {
   const save_key = 'pandora_save'
   const player = _create_new_player(player_name, player_role.id, player_race.id)
-  console.log(player)
 
   player_name = ''
-  // localStorage.setItem(
-  //   save_key,
-  //   LZString.compressToBase64(JSON.stringify(player))
-  // )
-}
 
-// const get_race_talent_info=computed(talent_id=>get_data(talent_id))
+  store.$state = player
+  localStorage.setItem(
+    save_key,
+    LZString.compressToBase64(JSON.stringify(player))
+  )
+}
 </script>

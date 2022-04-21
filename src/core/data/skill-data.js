@@ -1,17 +1,20 @@
-const skill_data_table = [
+const role_skill_data_table = [
   {
     id: 100001,
     name: '斩击',
     alias: 'Slash',
     type: ['物理', '基本'],
-    duration: 1,
+    duration: 2,
     round: 0,
     effects: [
       //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
       'monster@attacked@player@matt'
     ],
-    desc: `用力进行挥砍，造成$player$matt的物理伤害`
-  },
+    desc: `用力进行挥砍，造成150%攻击力的物理伤害`
+  }
+]
+
+const talent_skill_data_table = [
   {
     id: 101001,
     name: '自利',
@@ -57,5 +60,10 @@ const skill_data_table = [
     desc: '仅对当前角色生效，+5%闪避几率'
   }
 ]
+
+const skill_data_table = Array().concat(
+  role_skill_data_table,
+  talent_skill_data_table
+)
 
 export default skill_data_table
