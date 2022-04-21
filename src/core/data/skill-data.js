@@ -13,7 +13,7 @@ const skill_data_table = [
     desc: `用力进行挥砍，造成$player$matt的物理伤害`
   },
   {
-    id: 1000001,
+    id: 101001,
     name: '自利',
     alias: 'Selfish',
     type: ['被动', '天赋'],
@@ -24,7 +24,7 @@ const skill_data_table = [
     desc: '仅对当前角色生效，+10%治疗效果，+5%所有伤害'
   },
   {
-    id: 1000002,
+    id: 101002,
     name: '荣耀',
     alias: 'Glory',
     type: ['被动', '天赋'],
