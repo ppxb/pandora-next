@@ -4,17 +4,17 @@ const role_data_table = [
     name: '剑豪',
     alias: 'Hayato',
     base: {
-      $hp: 100,
+      $hp: 50,
       $max_hp: 0,
-      $pow: 15,
-      $dex: 9,
-      $vit: 6
+      $pow: 20,
+      $dex: 25,
+      $vit: 15
     },
     level_advance: {
-      $hp: 10,
-      $pow: 10,
-      $dex: 5,
-      $vit: 5
+      $hp: 3,
+      $pow: 4,
+      $dex: 7,
+      $vit: 4
     },
     skills: [100001],
     base_equipments: [800001, 800501]
@@ -24,17 +24,17 @@ const role_data_table = [
     name: '影',
     alias: 'Hayato',
     base: {
-      $hp: 100,
+      $hp: 45,
       $max_hp: 0,
       $pow: 15,
-      $dex: 9,
-      $vit: 6
+      $dex: 30,
+      $vit: 15
     },
     level_advance: {
-      $hp: 10,
-      $pow: 10,
-      $dex: 5,
-      $vit: 5
+      $hp: 2,
+      $pow: 5,
+      $dex: 7,
+      $vit: 3
     },
     skills: [100001],
     base_equipments: [800001, 800501]

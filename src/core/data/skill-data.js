@@ -33,6 +33,28 @@ const skill_data_table = [
       'monster@attacked@player@matt'
     ],
     desc: '仅对当前角色生效，+10%元素抗性'
+  },
+  {
+    id: 101003,
+    name: '残忍',
+    alias: 'Cruel',
+    type: ['被动', '天赋'],
+    effects: [
+      //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
+      'monster@attacked@player@matt'
+    ],
+    desc: '仅对当前角色生效，+5%暴击几率，+5%暴击伤害'
+  },
+  {
+    id: 101004,
+    name: '迷幻',
+    alias: 'Phantom',
+    type: ['被动', '天赋'],
+    effects: [
+      //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
+      'monster@attacked@player@matt'
+    ],
+    desc: '仅对当前角色生效，+5%闪避几率'
   }
 ]
 
