@@ -1,55 +1,78 @@
 <template>
   <div>
-    <h1>Create your player!</h1>
-    <h2>Type your player's name</h2>
-    <input type="text" v-model="player_name" />
-    <h2>Choose your player's role</h2>
-    <div>
-      <select v-model="player_role">
-        <option v-for="role in role_data_table" :key="role.id" :value="role">
-          {{ role.name }}
-        </option>
-      </select>
-      <h2>Choose your player's race</h2>
-      <select v-model="player_race">
-        <option v-for="race in race_data_table" :key="race.id" :value="race">
-          {{ race.name }}
-        </option>
-      </select>
-      <p>Talent：</p>
-      <div v-for="talent in player_race.talents" :key="talent.id">
-        <p>{{ get_data(talent).name }} - {{ get_data(talent).desc }}</p>
+    <h1>Welcome to Pandora World!</h1>
+    <template v-if="!loadPlayer">
+      <h2>Please create your player!</h2>
+      <h3>Type your player's name</h3>
+      <input type="text" v-model="playerName" />
+      <h3>Choose your player's role</h3>
+      <div>
+        <select v-model="playerRole">
+          <option v-for="role in roleDataTable" :key="role.id" :value="role">
+            {{ role.alias }}
+          </option>
+        </select>
+        <h3>Choose your player's race</h3>
+        <select v-model="playerRace">
+          <option v-for="race in raceDataTable" :key="race.id" :value="race">
+            {{ race.alias }}
+          </option>
+        </select>
+        <p>Talent：</p>
+        <div v-for="talent in playerRace.talents" :key="talent.id">
+          <p>{{ getData(talent).alias }} - {{ getData(talent).desc }}</p>
+        </div>
       </div>
-    </div>
-    <button @click="create">Create</button>
+      <button @click="create">Create</button>
+    </template>
+    <template v-else>
+      <h2>Please select your active player</h2>
+      <h3>Player</h3>
+      <div style="border: 1px dashed #333; width: 400px; padding: 20px">
+        <p>name：{{ loadPlayer && loadPlayer.name }}</p>
+        <p>level：{{ loadPlayer.level && loadPlayer.level.current }}</p>
+        <p>role：{{ loadPlayer.role && loadPlayer.role.name }}</p>
+        <button @click="select">select</button>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
-import _create_new_player from '~/core/create-player'
-import role_data_table from '~/core/data/role-data'
-import race_data_table from '~/core/data/race-data'
-import get_data from '~/core/get-data'
+import { onMounted } from 'vue'
+import createNewPlayer from '~/core/create-player'
+import roleDataTable from '~/core/data/role-data'
+import raceDataTable from '~/core/data/race-data'
+import getData from '~/core/get-data'
+import { save, load } from '~/core/save-load'
 
 import { usePlayerStore } from '~/store/player'
-import LZString from 'lz-string'
+import { useRouter } from 'vue-router'
 
-const player_name = $ref('')
-const player_role = $ref(get_data(900001))
-const player_race = $ref(get_data(1000001))
+const playerName = $ref('')
+const playerRole = $ref(getData(900001))
+const playerRace = $ref(getData(1000001))
 
 const store = usePlayerStore()
 
+const loadPlayer = $ref({})
+
+onMounted(() => {
+  loadPlayer = load()
+})
+
+const router = useRouter()
+
 const create = () => {
-  const save_key = 'pandora_save'
-  const player = _create_new_player(player_name, player_role.id, player_race.id)
+  if (playerName === '') return
+  const player = createNewPlayer(playerName, playerRole.id, playerRace.id)
+  playerName = ''
+  store.playerState = player
+  save(store.playerState)
+}
 
-  player_name = ''
-
-  store.$state = player
-  localStorage.setItem(
-    save_key,
-    LZString.compressToBase64(JSON.stringify(player))
-  )
+const select = () => {
+  store.playerState = loadPlayer
+  router.push('/lobby')
 }
 </script>

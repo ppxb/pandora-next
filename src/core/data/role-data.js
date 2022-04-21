@@ -22,7 +22,7 @@ const roleDataTable = [
   {
     id: 900002,
     name: '影',
-    alias: 'Hayato',
+    alias: 'Shadow',
     base: {
       $hp: 45,
       $maxHp: 0,
