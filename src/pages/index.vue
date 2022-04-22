@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import createNewPlayer from '~/core/create-player'
 import roleDataTable from '~/core/data/role-data'
 import raceDataTable from '~/core/data/race-data'
@@ -54,10 +54,9 @@ const router = useRouter()
 const playerName = $ref('')
 const playerRole = $ref(getData(900001))
 const playerRace = $ref(getData(1000001))
+const loadPlayer = $ref({})
 
 const store = usePlayerStore()
-
-const loadPlayer = $ref({})
 
 onMounted(() => {
   loadPlayer = load()
