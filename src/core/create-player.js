@@ -16,17 +16,18 @@ const createNewPlayer = (name, _roleId, _raceId) => {
     },
     attack: {
       $att: 0,
-      $matt: 0,
       $crit: 0,
       $critDmg: 0,
-      $hit: 0,
+      $hit: 0
+    },
+    defense: {
       $def: 0,
       $recover: 0,
       $armor: 0,
       $armorReduce: 0,
       $dodge: 0
     },
-    resources: {
+    resource: {
       gil: 0
     },
     equipments: new Array(13).fill(0),

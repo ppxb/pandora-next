@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Welcome to Pandora World!</h1>
-    <template v-if="!loadPlayer">
+    <template v-if="!loadPlayer.name">
       <h2>Please create your player!</h2>
       <h3>Type your player's name</h3>
       <input type="text" v-model="playerName" />
@@ -9,18 +9,18 @@
       <div>
         <select v-model="playerRole">
           <option v-for="role in roleDataTable" :key="role.id" :value="role">
-            {{ role.alias }}
+            {{ role.name }}
           </option>
         </select>
         <h3>Choose your player's race</h3>
         <select v-model="playerRace">
           <option v-for="race in raceDataTable" :key="race.id" :value="race">
-            {{ race.alias }}
+            {{ race.name }}
           </option>
         </select>
         <p>Talent：</p>
         <div v-for="talent in playerRace.talents" :key="talent.id">
-          <p>{{ getData(talent).alias }} - {{ getData(talent).desc }}</p>
+          <p>{{ getData(talent).name }} - {{ getData(talent).desc }}</p>
         </div>
       </div>
       <button @click="create">Create</button>
@@ -49,6 +49,8 @@ import { save, load } from '~/core/save-load'
 import { usePlayerStore } from '~/store/player'
 import { useRouter } from 'vue-router'
 
+const router = useRouter()
+
 const playerName = $ref('')
 const playerRole = $ref(getData(900001))
 const playerRace = $ref(getData(1000001))
@@ -61,14 +63,13 @@ onMounted(() => {
   loadPlayer = load()
 })
 
-const router = useRouter()
-
 const create = () => {
   if (playerName === '') return
   const player = createNewPlayer(playerName, playerRole.id, playerRace.id)
   playerName = ''
   store.playerState = player
   save(store.playerState)
+  router.push('/lobby')
 }
 
 const select = () => {
