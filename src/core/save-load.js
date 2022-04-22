@@ -11,5 +11,5 @@ export const save = player => {
 
 export const load = () => {
   const player = localStorage.getItem(saveKey)
-  return player ? JSON.parse(LZString.decompressFromBase64(player)) : null
+  return player ? JSON.parse(LZString.decompressFromBase64(player)) : {}
 }
