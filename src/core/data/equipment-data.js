@@ -28,7 +28,7 @@ const armorDataTable = [
     maxLevel: 10,
     base: {
       $hp: 25,
-      $vit: 7
+      $vit: 6
     },
     defense: {
       $def: 9

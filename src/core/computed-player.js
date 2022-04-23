@@ -1,6 +1,7 @@
+import { assign, cloneDeep } from 'lodash-es'
 import { unpack } from './utils'
 
-const calc = (list, target) =>
+const calculate = (list, target) =>
   list.reduce((res, next) => {
     next[target] &&
       Object.keys(next[target]).forEach(key => {
@@ -9,20 +10,37 @@ const calc = (list, target) =>
     return res
   }, {})
 
-const computedPlayer = player => {
-  const { base, equipments } = player
-  // pow=5 vit=10 hp=25 att=10 def=9
+const combine = (eq, player) => {
+  Object.keys(eq).forEach(key => {
+    Object.keys(player[key]).forEach(attr => {
+      player[key][attr] = (eq[key][attr] || 0) + player[key][attr]
+    })
+  })
+  return player
+}
 
-  // 1. 计算玩家装备属性
-  const unpackedEq = unpack(equipments)
+const computedPlayer = player => {
+  const _temp = cloneDeep(player)
+  const unpackedEq = unpack(_temp.equipments)
+
   const calcEq = {
-    base: calc(unpackedEq, 'base'),
-    attack: calc(unpackedEq, 'attack')
+    base: calculate(unpackedEq, 'base'),
+    attack: calculate(unpackedEq, 'attack'),
+    defense: calculate(unpackedEq, 'defense')
   }
 
-  console.log(calcEq)
+  const computed = combine(calcEq, _temp)
 
-  return player
+  const { base, attack, defense } = computed
+  assign(base, { $hp: base.$hp + base.$vit * 5 })
+  assign(attack, {
+    $att: attack.$att + Math.floor(base.$pow * 0.5),
+    $critDmg: attack.$critDmg + Number((base.$dex / 10).toFixed(2))
+  })
+  assign(defense, {
+    $dodge: defense.$dodge + Number((base.$dex / 1000).toFixed(2))
+  })
+  return assign(_temp, { base, attack, defense })
 }
 
 export default computedPlayer

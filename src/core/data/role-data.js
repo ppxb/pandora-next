@@ -5,7 +5,6 @@ const roleDataTable = [
     alias: 'Hayato',
     base: {
       $hp: 50,
-      $maxHp: 0,
       $pow: 20,
       $dex: 25,
       $vit: 15
@@ -25,7 +24,6 @@ const roleDataTable = [
     alias: 'Shadow',
     base: {
       $hp: 45,
-      $maxHp: 0,
       $pow: 15,
       $dex: 30,
       $vit: 15

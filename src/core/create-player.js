@@ -17,8 +17,7 @@ const createNewPlayer = (name, _roleId, _raceId) => {
     attack: {
       $att: 0,
       $crit: 0,
-      $critDmg: 0,
-      $hit: 0
+      $critDmg: 0
     },
     defense: {
       $def: 0,
@@ -30,6 +29,7 @@ const createNewPlayer = (name, _roleId, _raceId) => {
     resource: {
       gil: 0
     },
+    activeSkills: new Array(7).fill(0),
     equipments: new Array(13).fill(0),
     package: new Array(40).fill(0)
   }
