@@ -8,9 +8,11 @@ const weaponDataTable = [
     minLevel: 1,
     maxLevel: 10,
     base: {
-      $att: 10,
       $pow: 5,
       $vit: 3
+    },
+    attack: {
+      $att: 10
     }
   }
 ]
@@ -27,6 +29,9 @@ const armorDataTable = [
     base: {
       $hp: 25,
       $vit: 7
+    },
+    defense: {
+      $def: 9
     }
   }
 ]

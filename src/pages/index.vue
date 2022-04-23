@@ -4,22 +4,22 @@
     <template v-if="!loadPlayer.name">
       <h2>Please create your player!</h2>
       <h3>Type your player's name</h3>
-      <input type="text" v-model="playerName" />
+      <input type="text" v-model="player.name" />
       <h3>Choose your player's role</h3>
       <div>
-        <select v-model="playerRole">
+        <select v-model="player.role">
           <option v-for="role in roleDataTable" :key="role.id" :value="role">
             {{ role.name }}
           </option>
         </select>
         <h3>Choose your player's race</h3>
-        <select v-model="playerRace">
+        <select v-model="player.race">
           <option v-for="race in raceDataTable" :key="race.id" :value="race">
             {{ race.name }}
           </option>
         </select>
         <p>Talent：</p>
-        <div v-for="talent in playerRace.talents" :key="talent.id">
+        <div v-for="talent in player.race.talents" :key="talent.id">
           <p>{{ getData(talent).name }} - {{ getData(talent).desc }}</p>
         </div>
       </div>
@@ -51,9 +51,12 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const playerName = $ref('')
-const playerRole = $ref(getData(900001))
-const playerRace = $ref(getData(1000001))
+const player = reactive({
+  name: '',
+  role: getData(900001),
+  race: getData(1000001)
+})
+
 const loadPlayer = $ref({})
 
 const store = usePlayerStore()
@@ -63,16 +66,16 @@ onMounted(() => {
 })
 
 const create = () => {
-  if (playerName === '') return
-  const player = createNewPlayer(playerName, playerRole.id, playerRace.id)
-  playerName = ''
-  store.playerState = player
-  save(store.playerState)
+  if (!player.name) return
+  const newPlayer = createNewPlayer(player.name, player.role.id, player.race.id)
+  player.name = ''
+  store.state = newPlayer
+  save(store.state)
   router.push('/lobby')
 }
 
 const select = () => {
-  store.playerState = loadPlayer
+  store.state = loadPlayer
   router.push('/lobby')
 }
 </script>
