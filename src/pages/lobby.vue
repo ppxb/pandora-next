@@ -64,14 +64,48 @@
         }}
       </h3>
     </div>
+
+    <div
+      style="
+        border: 1px dashed #333;
+        width: fit-content;
+        padding: 10px 20px;
+        margin: 20px;
+      "
+    >
+      <h2>Equipments</h2>
+      <h3 v-for="(item, index) in player.equipments" key="item">
+        <button @click="showEq(item)">
+          {{ index }} - {{ unpack(item).name }}
+        </button>
+      </h3>
+    </div>
+
+    <div
+      style="
+        border: 1px dashed #333;
+        width: fit-content;
+        padding: 10px 20px;
+        margin: 20px;
+      "
+    >
+      <h2>Skills</h2>
+      <h3 v-for="(item, index) in player.skills" key="item">
+        <button @click="showEq(item)">
+          {{ index }} - {{ unpack(item).name }}
+        </button>
+      </h3>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { usePlayerStore } from '../store/player'
 import computedPlayer from '../core/computed-player'
+import { unpack } from '../core/utils'
 
 const { state } = usePlayerStore()
 
 const player = computedPlayer(state)
+const showEq = item => item != 0 && console.log(unpack(item))
 </script>
