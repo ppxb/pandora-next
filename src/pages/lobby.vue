@@ -107,7 +107,7 @@
     >
       <h1>Maps</h1>
       <h3 v-for="(item, index) in mapDataTable" key="item">
-        <button @click="show(item)">
+        <button @click="startCombat(item)">
           {{ index }} - {{ unpack(item).name }}
         </button>
       </h3>
@@ -120,9 +120,18 @@ import { usePlayerStore } from '../store/player'
 import { unpack } from '../core/utils'
 import computedPlayer from '../core/computed-player'
 import mapDataTable from '../core/data/map-data'
+import monsterDataTable from '../core/data/monster-data'
+import { combat } from '../core/combat'
 
 const { state } = usePlayerStore()
 
 const player = computedPlayer(state)
 const show = item => item != 0 && console.log(unpack(item))
+const startCombat = map => {
+  const monsters = unpack(
+    monsterDataTable.filter(monster => monster.maxLevel === map.maxLevel)
+  )
+
+  combat(player, monsters)
+}
 </script>
