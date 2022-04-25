@@ -2,6 +2,7 @@ const role_skill_data_table = [
   {
     id: 100000,
     name: '普通攻击',
+    need: 1,
     alias: 'Direct Attack',
     type: ['物理', '基本'],
     effects: ['$attack@1@1'],
@@ -12,6 +13,33 @@ const role_skill_data_table = [
     name: '斩击',
     alias: 'Slash',
     type: ['物理', '基本'],
+    need: 1,
+    duration: 2,
+    round: 0,
+    effects: [
+      //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
+      'monster@attacked@player@matt'
+    ],
+    desc: `用力进行挥砍，造成150%攻击力的物理伤害`
+  },
+  {
+    id: 100002,
+    name: '切割',
+    alias: 'Concentrate',
+    type: ['主动技能', '增益'],
+    duration: 2,
+    round: 0,
+    effects: [
+      //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
+      'monster@attacked@player@matt'
+    ],
+    desc: `用力进行挥砍，造成150%攻击力的物理伤害`
+  },
+  {
+    id: 100003,
+    name: '凝神',
+    alias: 'Concentrate',
+    type: ['主动技能', '增益'],
     duration: 2,
     round: 0,
     effects: [
@@ -54,7 +82,7 @@ const talent_skill_data_table = [
       //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
       'monster@attacked@player@matt'
     ],
-    desc: '仅对当前角色生效，+5%暴击几率，+5%暴击伤害'
+    desc: '仅对当前角色生效，暴击几率每等级增加0.08%，暴击伤害每等级增加0.3%'
   },
   {
     id: 101004,
@@ -65,7 +93,7 @@ const talent_skill_data_table = [
       //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
       'monster@attacked@player@matt'
     ],
-    desc: '仅对当前角色生效，+5%闪避几率'
+    desc: '仅对当前角色生效，闪避几率每等级提升0.1%'
   }
 ]
 

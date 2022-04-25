@@ -1,6 +1,19 @@
 const roleDataTable = [
   {
     id: 900001,
+    name: '初心者',
+    alias: 'Beginner',
+    levelAdvance: {
+      $hp: 10,
+      $pow: 3,
+      $dex: 3,
+      $vit: 3
+    },
+    skills: [100000],
+    initEquipments: [800001, 800501]
+  },
+  {
+    id: 900002,
     name: '剑豪',
     alias: 'Hayato',
     base: {
@@ -19,23 +32,17 @@ const roleDataTable = [
     baseEquipments: [800001, 800501]
   },
   {
-    id: 900002,
+    id: 900003,
     name: '影',
     alias: 'Shadow',
-    base: {
-      $hp: 45,
-      $pow: 15,
-      $dex: 30,
-      $vit: 15
-    },
     levelAdvance: {
-      $hp: 2,
-      $pow: 5,
-      $dex: 7,
+      $hp: 10,
+      $pow: 3,
+      $dex: 3,
       $vit: 3
     },
     skills: [100001],
-    baseEquipments: [800001, 800501]
+    baseEquipments: [800051, 800501]
   }
 ]
 

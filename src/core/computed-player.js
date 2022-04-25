@@ -10,6 +10,18 @@ const calculate = (list, target) =>
     return res
   }, {})
 
+const calcAdvance = computed => {
+  Object.keys(computed.base).forEach(key => {
+    if (computed.level.current === 1)
+      computed.base[key] = computed.base[key] + computed.levelAdvance.role[key]
+    else
+      computed.base[key] =
+        computed.base[key] +
+        computed.levelAdvance.role[key] * computed.level.current +
+        computed.levelAdvance.race[key] * (computed.level.current - 1)
+  })
+}
+
 const combine = (eq, player) => {
   Object.keys(eq).forEach(key => {
     Object.keys(player[key]).forEach(attr => {
@@ -31,10 +43,11 @@ const computedPlayer = player => {
 
   const computed = combine(calcEq, _temp)
 
+  calcAdvance(computed)
+
   const { base, attack, defense } = computed
-  assign(base, { $hp: base.$hp + base.$vit * 5 })
   assign(attack, {
-    $att: attack.$att + Math.floor(base.$pow * 0.5),
+    $att: attack.$att + Math.floor(base.$pow / 5),
     $critDmg: attack.$critDmg + Number((base.$dex / 10).toFixed(2))
   })
   assign(defense, {

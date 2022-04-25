@@ -5,14 +5,25 @@ const weaponDataTable = [
     alias: 'Rigido Sword',
     lable: ['剑', '主手'],
     equipSlot: 0,
+    needLevel: 1,
+    attack: {
+      $att: 7
+    }
+  },
+  {
+    id: 800051, // 800001 ~ 800500
+    name: '合金匕首',
+    alias: 'Rigido Dagger',
+    lable: ['匕首', '单手'],
+    equipSlot: 0,
     minLevel: 1,
     maxLevel: 10,
     base: {
       $pow: 5,
-      $vit: 3
+      $dex: 7
     },
     attack: {
-      $att: 10
+      $att: 8
     }
   }
 ]
@@ -24,14 +35,9 @@ const armorDataTable = [
     alias: 'Cloth Armor',
     lable: ['护甲', '上衣'],
     equipSlot: 3,
-    minLevel: 1,
-    maxLevel: 10,
-    base: {
-      $hp: 25,
-      $vit: 6
-    },
+    needLevel: 1,
     defense: {
-      $def: 9
+      $def: 17
     }
   }
 ]
