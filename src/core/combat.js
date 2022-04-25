@@ -23,9 +23,10 @@ export const combat = (player, monsters) => {
 
   const skills = unpack(playerSnapshot.skillSet)
 
-  const canUseSkills = skills.filter(
-    item => !item.type.includes('被动') && item.round === 0
-  )
+  const canUseSkills = skills.filter(item => {
+    console.log(item)
+    return !item.type.includes('被动') && item.round == 0
+  })
   let roundSkill = {}
   if (isEmpty(canUseSkills)) roundSkill = unpack(100000)
   else {
@@ -37,9 +38,9 @@ export const combat = (player, monsters) => {
   // 判断哪些技能可以释放
 
   console.log(`${player.name} 释放了 ${roundSkill.name}`)
-  skills.every(item => {
-    if (item.round > 0) item.round--
-  })
+  // skills.every(item => {
+  //   if (item.round > 0) item.round--
+  // })
   // while (
   //   player.base.$hp > 0 &&
   //   monsterList.some(monster => monster.base.$hp > 0)
