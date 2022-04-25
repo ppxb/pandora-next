@@ -1,5 +1,5 @@
 import { unpack } from './utils'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, isEmpty } from 'lodash-es'
 
 export const combat = (player, monsters) => {
   const playerSnapshot = cloneDeep(player)
@@ -21,23 +21,25 @@ export const combat = (player, monsters) => {
   const playerFirst = Math.random() > 0.5
   let round = 0
 
-  // 选择释放技能
-  // const skill = unpack(
-  //   player.skills[Math.floor(Math.random() * player.skills.length)]
-  // )
-
-  const skills = unpack(playerSnapshot.skills)
+  const skills = unpack(playerSnapshot.skillSet)
 
   const canUseSkills = skills.filter(
     item => !item.type.includes('被动') && item.round === 0
   )
+  let roundSkill = {}
+  if (isEmpty(canUseSkills)) roundSkill = unpack(100000)
+  else {
+    roundSkill = canUseSkills[Math.floor(Math.random() * canUseSkills.length)]
+    roundSkill.round = roundSkill.duration
+    console.log(roundSkill)
+  }
 
   // 判断哪些技能可以释放
 
-  const roundSkill =
-    canUseSkills[Math.floor(Math.random() * canUseSkills.length)]
-
   console.log(`${player.name} 释放了 ${roundSkill.name}`)
+  skills.every(item => {
+    if (item.round > 0) item.round--
+  })
   // while (
   //   player.base.$hp > 0 &&
   //   monsterList.some(monster => monster.base.$hp > 0)
