@@ -29,7 +29,11 @@ const createNewPlayer = (name, _roleId, _raceId) => {
     resource: {
       gil: 0
     },
-    activeSkills: new Array(7).fill(0),
+    skills: {
+      active: new Array(5).fill(0),
+      passive: new Array(2).fill(0),
+      talent: new Array(2).fill(0)
+    },
     equipments: new Array(13).fill(0),
     package: new Array(40).fill(0)
   }
@@ -53,7 +57,7 @@ const createNewPlayer = (name, _roleId, _raceId) => {
   assign(player, {
     base,
     levelAdvance,
-    skills: [...skills, ..._raceTalents],
+    skillSet: [...skills, ..._raceTalents],
     role: {
       id: _roleId,
       name: _roleName,

@@ -90,7 +90,29 @@
       "
     >
       <h2>Skills</h2>
-      <h3 v-for="(item, index) in player.skills" key="item">
+      <h3>active</h3>
+      <h3
+        v-for="(item, index) in player.skills.active.filter(item => item != 0)"
+        key="item"
+      >
+        <button @click="show(item)">
+          {{ index }} - {{ unpack(item).name }}
+        </button>
+      </h3>
+      <h3>passive</h3>
+      <h3
+        v-for="(item, index) in player.skills.passive.filter(item => item != 0)"
+        key="item"
+      >
+        <button @click="show(item)">
+          {{ index }} - {{ unpack(item).name }}
+        </button>
+      </h3>
+      <h3>talent</h3>
+      <h3
+        v-for="(item, index) in player.skills.talent.filter(item => item != 0)"
+        key="item"
+      >
         <button @click="show(item)">
           {{ index }} - {{ unpack(item).name }}
         </button>

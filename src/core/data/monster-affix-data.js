@@ -8,6 +8,14 @@
 // 精英怪物：1-3条普通词缀，1-2条精英词缀，总量不超过 4条
 // BOSS怪物：1条普通词缀，2条精英词缀，3条BOSS词缀，总量不超过6条
 
-const monsterAffixDataTable = []
+// type:1 普通词缀 2 精英词缀 3 BOSS词缀
+
+const monsterAffixDataTable = [
+  {
+    name: '坚韧',
+    type: 1,
+    effect: ['$hp@multiply@1.1']
+  }
+]
 
 export default monsterAffixDataTable

@@ -1,5 +1,13 @@
 const role_skill_data_table = [
   {
+    id: 100000,
+    name: '普通攻击',
+    alias: 'Direct Attack',
+    type: ['物理', '基本'],
+    effects: ['$attack@1@1'],
+    desc: `对1个敌人造成100%攻击力的物理伤害`
+  },
+  {
     id: 100001,
     name: '斩击',
     alias: 'Slash',
