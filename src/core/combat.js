@@ -23,24 +23,26 @@ export const combat = (player, monsters) => {
 
   const skills = unpack(playerSnapshot.skillSet)
 
-  const canUseSkills = skills.filter(item => {
-    console.log(item)
-    return !item.type.includes('被动') && item.round == 0
-  })
-  let roundSkill = {}
-  if (isEmpty(canUseSkills)) roundSkill = unpack(100000)
-  else {
-    roundSkill = canUseSkills[Math.floor(Math.random() * canUseSkills.length)]
-    roundSkill.round = roundSkill.duration
-    console.log(roundSkill)
+  for (let i = 0; i < 50; i++) {
+    const skillList = skills.filter(item => {
+      return !item.type.includes('被动') && item.round == 0
+    })
+
+    let nextSkill = {}
+    if (isEmpty(skillList)) nextSkill = unpack(100000)
+    else {
+      nextSkill = skillList[Math.floor(Math.random() * skillList.length)]
+      nextSkill.round = nextSkill.duration
+    }
+
+    console.log(`${player.name} 释放了 ${nextSkill.name}`)
+
+    skills.forEach(item => {
+      if (item.id === nextSkill.id) return
+      if (item.round > 0) item.round--
+    })
   }
 
-  // 判断哪些技能可以释放
-
-  console.log(`${player.name} 释放了 ${roundSkill.name}`)
-  // skills.every(item => {
-  //   if (item.round > 0) item.round--
-  // })
   // while (
   //   player.base.$hp > 0 &&
   //   monsterList.some(monster => monster.base.$hp > 0)
