@@ -6,6 +6,14 @@
       <h3>Type your player's name</h3>
       <input type="text" v-model="player.name" />
       <div>
+        <h3>Choose your player's role</h3>
+        <select v-model="player.role">
+          <option v-for="role in roleDataTable" :key="role.id" :value="role">
+            {{ role.name }}
+          </option>
+        </select>
+      </div>
+      <div>
         <h3>Choose your player's race</h3>
         <select v-model="player.race">
           <option v-for="race in raceDataTable" :key="race.id" :value="race">
@@ -36,6 +44,7 @@
 import { onMounted, reactive } from 'vue'
 import createNewPlayer from '~/core/create-player'
 import raceDataTable from '~/core/data/race-data'
+import roleDataTable from '~/core/data/role-data'
 import getData from '~/core/get-data'
 import { save, load } from '~/core/save-load'
 
@@ -46,6 +55,7 @@ const router = useRouter()
 
 const player = reactive({
   name: '',
+  role: getData(900001),
   race: getData(1000002)
 })
 
@@ -59,7 +69,7 @@ onMounted(() => {
 
 const create = () => {
   if (!player.name) return
-  const newPlayer = createNewPlayer(player.name, player.race.id)
+  const newPlayer = createNewPlayer(player.name, player.role.id, player.race.id)
   player.name = ''
   store.state = newPlayer
   save(store.state)

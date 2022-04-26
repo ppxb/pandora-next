@@ -2,8 +2,8 @@ import { nanoid } from 'nanoid'
 import { cloneDeep, assign } from 'lodash-es'
 import getData from '~/core/get-data'
 
-const createNewPlayer = (name, _raceId) => {
-  const initRole = cloneDeep(getData(900001))
+const createNewPlayer = (name, _roleId, _raceId) => {
+  const role = cloneDeep(getData(_roleId))
   const race = cloneDeep(getData(_raceId))
 
   const player = {
@@ -29,42 +29,36 @@ const createNewPlayer = (name, _raceId) => {
       gil: 0
     },
     skills: {
-      active: [initRole.skills[0], 0, 0, 0, 0],
-      talent: new Array(2).fill(0)
+      active: [role.skills[0], 0, 0, 0, 0],
+      passive: new Array()
     },
     equipments: new Array(13).fill(0),
     package: new Array(40).fill(0)
   }
 
-  const {
-    id: _roleId,
-    name: _roleName,
-    alias: _roleAlias,
-    initEquipments,
-    skills,
-    levelAdvance: _roleLevelAdvance
-  } = initRole
+  const { name: _roleName, alias: _roleAlias, baseEquipments, skills } = role
 
   const {
     name: _raceName,
     alias: _raceAlias,
     base: _raceBase,
-    levelAdvance: _raceLevelAdvance,
+    levelAdvance,
     talents: _raceTalents
   } = race
 
-  initEquipments.forEach(item => {
+  baseEquipments.forEach(item => {
     const equipment = getData(item)
     player.equipments[equipment.equipSlot] = item
   })
 
   assign(player, {
     base: _raceBase,
-    levelAdvance: {
-      role: _roleLevelAdvance,
-      race: _raceLevelAdvance
-    },
+    levelAdvance,
     skillSet: [...skills, ..._raceTalents],
+    skills: {
+      ...player.skills,
+      passive: _raceTalents
+    },
     role: {
       id: _roleId,
       name: _roleName,

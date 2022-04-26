@@ -102,11 +102,8 @@
           {{ index }} - {{ unpack(item).name }}
         </button>
       </h3>
-      <h3>talent</h3>
-      <h3
-        v-for="(item, index) in player.skills.talent.filter(item => item != 0)"
-        key="item"
-      >
+      <h3>passive</h3>
+      <h3 v-for="(item, index) in player.skills.passive" key="item">
         <button @click="show(item)">
           {{ index }} - {{ unpack(item).name }}
         </button>
@@ -142,6 +139,8 @@ import { combat } from '../core/combat'
 const { state } = usePlayerStore()
 
 const player = computedPlayer(state)
+
+console.log(player)
 
 const show = item => item != 0 && console.log(unpack(item))
 const startCombat = map => {
