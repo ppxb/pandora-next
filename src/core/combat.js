@@ -11,20 +11,24 @@ export const combat = (player, monsters) => {
 
   // 添加怪物到怪物组
   for (let i = 0; i < monsterList.length; i++) {
-    monsterList[i] =
+    monsterList[i] = cloneDeep(
       mastersSnapshot[Math.floor(Math.random() * mastersSnapshot.length)]
+    )
   }
 
   // TODO 为怪物生成词缀
 
   // 判断出手顺序
-  const playerFirst = Math.random() > 0.5
-  let round = 0
+  const combatLogs = []
+  let round = 1
 
-  const skills = unpack(playerSnapshot.skillSet)
+  const playerSkills = unpack(playerSnapshot.skillSet)
 
-  for (let i = 0; i < 50; i++) {
-    const skillList = skills.filter(item => {
+  while (
+    playerSnapshot.base.$hp > 0 &&
+    monsterList.filter(monster => monster.base.$hp > 0).length > 0
+  ) {
+    const skillList = playerSkills.filter(item => {
       return !item.type.includes('被动') && item.round == 0
     })
 
@@ -35,32 +39,68 @@ export const combat = (player, monsters) => {
       nextSkill.round = nextSkill.duration
     }
 
-    console.log(`${player.name} 释放了 ${nextSkill.name}`)
+    const skillDeconstruct = nextSkill.effects[0].split('@')
+    const skillAttackTime = skillDeconstruct[0]
+    const skillAttackBaseDmg = skillDeconstruct[1]
 
-    skills.forEach(item => {
+    const playerSkillDmg = Math.ceil(
+      playerSnapshot.attack.$att * skillAttackTime * skillAttackBaseDmg
+    )
+
+    const currentLiveMonsterList = monsterList.filter(
+      monster => monster.base.$hp > 0
+    )
+
+    const currentBeAttackedMonster =
+      currentLiveMonsterList[
+        Math.floor(Math.random() * currentLiveMonsterList.length)
+      ]
+
+    currentBeAttackedMonster.base.$hp -= playerSkillDmg
+
+    if (nextSkill.id == 100000) {
+      combatLogs.push(
+        `${round} - ${player.name} 攻击了 ${currentBeAttackedMonster.name}，造成了${playerSkillDmg}伤害`
+      )
+    } else {
+      combatLogs.push(
+        `${round} - ${player.name} 使用技能 ${nextSkill.name} 攻击了 ${currentBeAttackedMonster.name}，造成了${playerSkillDmg}伤害`
+      )
+    }
+
+    if (monsterList.filter(monster => monster.base.$hp > 0).length === 0) {
+      combatLogs.push(`${round} - ${player.name} 已获胜`)
+      break
+    }
+
+    playerSkills.forEach(item => {
       if (item.id === nextSkill.id) return
       if (item.round > 0) item.round--
     })
+
+    round++
+
+    const currentAttackMonster =
+      currentLiveMonsterList[
+        Math.floor(Math.random() * currentLiveMonsterList.length)
+      ]
+
+    const monsterDmg = currentAttackMonster.base.$att
+
+    playerSnapshot.base.$hp -= monsterDmg
+
+    combatLogs.push(
+      `${round} - ${currentAttackMonster.name} 攻击了 ${playerSnapshot.name}，造成了${monsterDmg}伤害{player hp:${playerSnapshot.base.$hp}}`
+    )
+
+    if (playerSnapshot.base.$hp <= 0) {
+      combatLogs.push(`${round} - ${playerSnapshot.name} 已死亡`)
+      break
+    }
+
+    round++
   }
 
-  // while (
-  //   player.base.$hp > 0 &&
-  //   monsterList.some(monster => monster.base.$hp > 0)
-  // ) {
-  //   if (playerFirst) {
-  //     // 选择释放技能
-  //     const skill =
-  //       player.skills[Math.floor(Math.random() * player.skills.length)]
-
-  //     console.log(`${player.name} 释放了 ${skill.name}`)
-
-  //     round++
-  // player.attack(monsterList)
-  // if (monsterList.some(monster => monster.hp > 0)) {
-  //   monsterList.forEach(monster => {
-  //     monster.attack(player)
-  //   })
-  // }
-  //   }
-  // }
+  console.log(monsterList)
+  console.log(combatLogs)
 }

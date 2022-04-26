@@ -5,22 +5,21 @@ const role_skill_data_table = [
     need: 1,
     alias: 'Direct Attack',
     type: ['物理', '基本'],
-    effects: ['$attack@1@1'],
+    effects: ['1@1'],
+    object: 1,
     desc: `对1个敌人造成100%攻击力的物理伤害`
   },
   {
     id: 100001,
-    name: '斩击',
-    alias: 'Slash',
+    name: '切割',
+    alias: 'Concentrate',
     type: ['物理', '基本'],
-    need: 1,
-    duration: 2,
+    need: 2,
+    duration: 3,
     round: 0,
-    effects: [
-      //[权重]参数名@{前置条件语句}#参数名@事件@事件参数
-      'monster@attacked@player@matt'
-    ],
-    desc: `用力进行挥砍，造成150%攻击力的物理伤害`
+    object: 1,
+    effects: ['2@0.8'],
+    desc: `以极快的速度对单个敌人造成2次攻击，每次造成80%攻击力的物理伤害`
   },
   {
     id: 100002,

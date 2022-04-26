@@ -29,7 +29,7 @@ const createNewPlayer = (name, _roleId, _raceId) => {
       gil: 0
     },
     skills: {
-      active: [role.skills[0], 0, 0, 0, 0],
+      active: new Array(5).fill(0),
       passive: new Array()
     },
     equipments: new Array(13).fill(0),
