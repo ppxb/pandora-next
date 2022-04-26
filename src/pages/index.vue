@@ -34,6 +34,7 @@
         <p>name：{{ loadPlayer && loadPlayer.name }}</p>
         <p>level：{{ loadPlayer.level && loadPlayer.level.current }}</p>
         <p>role：{{ loadPlayer.role && loadPlayer.role.name }}</p>
+        <p>race：{{ loadPlayer.race && loadPlayer.race.name }}</p>
         <button @click="select">select</button>
       </div>
     </template>

@@ -33,7 +33,7 @@ const computedPlayer = player => {
 
   const { base, attack, defense } = computed
   assign(attack, {
-    $att: attack.$att + Math.floor(base.$pow / 5),
+    $att: attack.$att + Math.ceil(base.$pow / 5),
     $critDmg: attack.$critDmg + Number((base.$dex / 10).toFixed(2))
   })
   assign(defense, {

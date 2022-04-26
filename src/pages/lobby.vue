@@ -140,8 +140,6 @@ const { state } = usePlayerStore()
 
 const player = computedPlayer(state)
 
-console.log(player)
-
 const show = item => item != 0 && console.log(unpack(item))
 const startCombat = map => {
   const monsters = unpack(
