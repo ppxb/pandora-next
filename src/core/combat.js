@@ -6,7 +6,10 @@ export const combat = (player, monsters) => {
   const mastersSnapshot = cloneDeep(monsters)
 
   // 随机生成战斗怪物数量
-  const monsterCount = Math.floor(Math.random() * 6 + 1)
+  const monsterCount =
+    player.level.current < 5
+      ? Math.floor(Math.random() * 3 + 1)
+      : Math.floor(Math.random() * 6 + 1)
   const monsterList = new Array(monsterCount)
 
   // 添加怪物到怪物组
