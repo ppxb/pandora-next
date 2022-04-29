@@ -93,7 +93,7 @@ export const combat = (player, monsters) => {
     playerSnapshot.base.$hp -= monsterDmg
 
     combatLogs.push(
-      `${round} - ${currentAttackMonster.name} 攻击了 ${playerSnapshot.name}，造成了${monsterDmg}伤害{player hp:${playerSnapshot.base.$hp}}`
+      `${round} - ${currentAttackMonster.name} 攻击了 ${playerSnapshot.name}，造成了${monsterDmg}伤害`
     )
 
     if (playerSnapshot.base.$hp <= 0) {
@@ -104,6 +104,5 @@ export const combat = (player, monsters) => {
     round++
   }
 
-  console.log(monsterList)
-  console.log(combatLogs)
+  return combatLogs
 }
