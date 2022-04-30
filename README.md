@@ -2,7 +2,9 @@
 
 > Made by Vue and Vite.
 
-Pandora is a text-based (maybe future will be multi-player online) RPG idle game.You can built your own build in this game by unique legendary euqipment and role's skill.Enjoy it.
+Pandora is a text-based (maybe future will be multi-player online) RPG idle game.You can built your own build in this game by unique legendary euqipment and role's skill.
+
+Enjoy it.
 
 > 💡 Notice: Now this game is under developing at early phase.
 
@@ -10,13 +12,13 @@ Pandora is a text-based (maybe future will be multi-player online) RPG idle game
 
 - [x] basic combat logic
 - [x] basic role and race data
-- [x] basic level-exp generator
+- [x] basic player exp generator
 - [x] create player logic
 - [ ] ui design
 - [ ] user account
 - [ ] role skill set
 - [ ] equipments and items
-- [ ] update combat logic
-- [ ] loot and level-up caclulator logic
+- [ ] optimize combat logic
+- [ ] loots and level-up calculate logic
 - [ ] enemy skill set
       ...
