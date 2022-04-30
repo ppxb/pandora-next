@@ -29,4 +29,4 @@ If you have some good idea or good advice,please create an issue or make a pull 
 
 # 📪 Or you can mail to me
 
-<ppxb123@gmai.com>
+<ppxb123@gmail.com>
