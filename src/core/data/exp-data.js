@@ -1,5 +1,5 @@
 const genExpData = () => {
-  let tempExpTable = [0, 50]
+  let tempExpTable = [0, 100]
   for (let i = 2; i <= 100; i++) {
     if (i <= 20)
       tempExpTable.push(

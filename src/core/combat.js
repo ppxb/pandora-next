@@ -1,15 +1,16 @@
 import { unpack } from './utils'
 import { cloneDeep, isEmpty } from 'lodash-es'
+import expDataTable from '~/core/data/exp-data'
 
-export const combat = (player, monsters) => {
+export const combat = (player, correctMapMonsterData, maxMonsterCount) => {
   const playerSnapshot = cloneDeep(player)
-  const mastersSnapshot = cloneDeep(monsters)
+  const mastersSnapshot = correctMapMonsterData
 
   // 随机生成战斗怪物数量
   const monsterCount =
     player.level.current < 5
       ? Math.floor(Math.random() * 3 + 1)
-      : Math.floor(Math.random() * 6 + 1)
+      : Math.floor(Math.random() * maxMonsterCount + 1)
   const monsterList = new Array(monsterCount)
 
   // 添加怪物到怪物组
@@ -73,6 +74,19 @@ export const combat = (player, monsters) => {
 
     if (monsterList.filter(monster => monster.base.$hp > 0).length === 0) {
       combatLogs.push(`${round} - ${player.name} 已获胜`)
+      const earnExp = monsterList.reduce((pre, next) => {
+        return pre + next.base.exp
+      }, 0)
+      const earnGil = monsterList.reduce((pre, next) => {
+        return pre + next.base.gil
+      }, 0)
+      player.level.exp += earnExp
+      player.resource.gil += earnGil
+      if (player.level.exp >= player.level.nextExp) {
+        player.level.current++
+        player.level.exp = 0
+        player.level.nextExp = expDataTable[player.level.current]
+      }
       break
     }
 

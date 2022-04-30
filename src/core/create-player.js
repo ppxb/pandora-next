@@ -12,7 +12,7 @@ const createNewPlayer = (name, _roleId, _raceId) => {
     level: {
       current: 1,
       exp: 0,
-      nextExp: 50
+      nextExp: 100
     },
     attack: {
       $att: 0,

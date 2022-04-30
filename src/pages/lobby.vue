@@ -149,6 +149,7 @@ import computedPlayer from '../core/computed-player'
 import mapDataTable from '../core/data/map-data'
 import monsterDataTable from '../core/data/monster-data'
 import { combat } from '../core/combat'
+import { onUnmounted } from 'vue'
 
 const { state } = usePlayerStore()
 
@@ -156,22 +157,28 @@ const player = computedPlayer(state)
 const combatLog = $ref([])
 const tempLog = $ref([])
 const isCombat = $ref(false)
+let combatTimer = null
 
 const show = item => item != 0 && console.log(unpack(item))
 const startCombat = map => {
-  if (isCombat == true) {
-    return
-  }
+  if (isCombat == true && combatTimer) return
   isCombat = true
-  const monsters = unpack(
-    monsterDataTable.filter(monster => monster.maxLevel === map.maxLevel)
+  const correctMapMonsterData = unpack(
+    monsterDataTable.filter(
+      monster =>
+        monster.max - 2 <= player.level.current ||
+        monster.max <= player.level.current + 2
+    )
   )
 
-  tempLog = combat(player, monsters)
+  tempLog = combat(player, correctMapMonsterData, map.maxMonsterCount)
 
-  const timer = setInterval(() => {
+  combatTimer = setInterval(() => {
     if (tempLog.length === 0) {
-      clearInterval(timer)
+      // 在此处处理战斗奖励和升级逻辑
+      // 战斗结果会返回战斗日志、奖励、胜者
+      // 每次战斗结束后会等待3S-5S
+      clearInterval(combatTimer)
       isCombat = false
       combatLog = []
       startCombat(map)
@@ -181,6 +188,10 @@ const startCombat = map => {
     combatLog.push(tempLog.shift())
   }, 300)
 }
+
+onUnmounted(() => {
+  clearInterval(combatTimer)
+})
 </script>
 <style scoped>
 .lobby {
