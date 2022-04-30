@@ -22,3 +22,7 @@ Enjoy it.
 - [ ] loots and level-up calculate logic
 - [ ] enemy skill set
       ...
+
+# ❔ Contribution
+
+If you have some good idea or good advice,please create an issue or make a pull request to contributing.
