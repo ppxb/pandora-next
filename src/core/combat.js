@@ -3,6 +3,7 @@ import { cloneDeep, isEmpty } from 'lodash-es'
 import expDataTable from '~/core/data/exp-data'
 
 export const combat = (player, correctMapMonsterData, maxMonsterCount) => {
+  const combatResult = {}
   const playerSnapshot = cloneDeep(player)
   const mastersSnapshot = correctMapMonsterData
 
@@ -74,6 +75,7 @@ export const combat = (player, correctMapMonsterData, maxMonsterCount) => {
 
     if (monsterList.filter(monster => monster.base.$hp > 0).length === 0) {
       combatLogs.push(`${round} - ${player.name} 已获胜`)
+      combatResult.winner = 1
       const earnExp = monsterList.reduce((pre, next) => {
         return pre + next.base.exp
       }, 0)
@@ -111,6 +113,7 @@ export const combat = (player, correctMapMonsterData, maxMonsterCount) => {
     )
 
     if (playerSnapshot.base.$hp <= 0) {
+      combatResult.winner = 2
       combatLogs.push(`${round} - ${playerSnapshot.name} 已死亡`)
       break
     }
@@ -118,5 +121,7 @@ export const combat = (player, correctMapMonsterData, maxMonsterCount) => {
     round++
   }
 
-  return combatLogs
+  combatResult.log = combatLogs
+
+  return combatResult
 }

@@ -134,8 +134,15 @@
     <div>
       <h1>Combat log</h1>
       <div class="combat-wrapper">
-        <div v-for="log in combatLog">
-          {{ log }}
+        <div v-if="isCombat">
+          <div v-for="log in combatLog">
+            {{ log }}
+          </div>
+        </div>
+        <div v-if="isWait">
+          <div v-for="log in waitLog">
+            {{ log }}
+          </div>
         </div>
       </div>
     </div>
@@ -150,6 +157,7 @@ import mapDataTable from '../core/data/map-data'
 import monsterDataTable from '../core/data/monster-data'
 import { combat } from '../core/combat'
 import { onUnmounted } from 'vue'
+import calcLoot from '~/core/calc-loot'
 
 const { state } = usePlayerStore()
 
@@ -157,7 +165,10 @@ const player = computedPlayer(state)
 const combatLog = $ref([])
 const tempLog = $ref([])
 const isCombat = $ref(false)
+const isWait = $ref(false)
 let combatTimer = null
+let waitTimer = null
+const waitLog = $ref([])
 
 const show = item => item != 0 && console.log(unpack(item))
 const startCombat = map => {
@@ -171,18 +182,40 @@ const startCombat = map => {
     )
   )
 
-  tempLog = combat(player, correctMapMonsterData, map.maxMonsterCount)
+  const { log, winner, loot } = combat(
+    player,
+    correctMapMonsterData,
+    map.maxMonsterCount
+  )
+
+  tempLog = log
 
   combatTimer = setInterval(() => {
     if (tempLog.length === 0) {
       // 在此处处理战斗奖励和升级逻辑
       // 战斗结果会返回战斗日志、奖励、胜者
-      // 每次战斗结束后会等待3S-5S
+      // √ 每次战斗结束后会等待3S-5S，然后自动跳转到下一场战斗
       clearInterval(combatTimer)
       isCombat = false
       combatLog = []
-      startCombat(map)
-      return
+      if (winner == 1) {
+        calcLoot(player, loot)
+      }
+      isWait = true
+
+      let count = 5
+      waitLog = []
+
+      waitTimer = setInterval(() => {
+        if (waitLog.length >= 5) {
+          clearInterval(waitTimer)
+          isWait = false
+          startCombat(map)
+        }
+
+        waitLog.push(`正在整顿，寻找下一个敌人...${count}s`)
+        count--
+      }, 1000)
     }
 
     combatLog.push(tempLog.shift())
@@ -190,7 +223,8 @@ const startCombat = map => {
 }
 
 onUnmounted(() => {
-  clearInterval(combatTimer)
+  if (combatTimer) clearInterval(combatTimer)
+  if (waitTimer) clearInterval(waitTimer)
 })
 </script>
 <style scoped>

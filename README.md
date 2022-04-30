@@ -1,30 +1,22 @@
-# Vue 3.2 + Typescript + Vite Template
+# Pandora
 
-This template is a minimal achieve use typescript + vue3.2 + vite + pinia.Check out the original repository [Vitesse](https://github.com/antfu/vitesse) to learn more.
+> Made by Vue and Vite.
 
-## Features
+Pandora is a text-based (maybe future will be multi-player online) RPG idle game.You can built your own build in this game by unique legendary euqipment and role's skill.Enjoy it.
 
-- Vue3
-- Vite
-- Vue-Router
-- Pinia
+> 💡 Notice: Now this game is under developing at early phase.
 
-## Pre-packed
+# 💻 Roadmap
 
-### UI Frameworks
-
-- [UnoCSS](https://github.com/antfu/unocss) - The instant on-demand atomic CSS engine.
-
-### Icons
-
-- [Iconify](https://iconify.design) - use icons from any icon sets [🔍Icônes](https://icones.netlify.app/)
-
-### Plugins
-
-- [`unplugin-vue-components`](https://github.com/antfu/unplugin-vue-components) - components auto import
-- [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import) - Directly use Vue Composition API and others without importing
-- [`VueUse`](https://github.com/antfu/vueuse) - collection of useful composition APIs
-
-### GitHub Template
-
-[Create a repo from this template on GitHub](https://github.com/ppxb/vite-template/generate).
+- [x] basic combat logic
+- [x] basic role and race data
+- [x] basic level-exp generator
+- [x] create player logic
+- [ ] ui design
+- [ ] user account
+- [ ] role skill set
+- [ ] equipments and items
+- [ ] update combat logic
+- [ ] loot and level-up caclulator logic
+- [ ] enemy skill set
+      ...
