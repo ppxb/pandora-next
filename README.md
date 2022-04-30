@@ -8,7 +8,7 @@ Enjoy it.
 
 > 💡 Notice: Now this game is under developing at early phase.
 
-# 💻 Roadmap
+# 🛸 Roadmap
 
 - [x] basic combat logic
 - [x] basic role and race data
@@ -23,6 +23,10 @@ Enjoy it.
 - [ ] enemy skill set
       ...
 
-# ❔ Contribution
+# 👾 Contribution
 
 If you have some good idea or good advice,please create an issue or make a pull request to contributing.
+
+# 📪 Or you can mail to me
+
+<ppxb123@gmai.com>
