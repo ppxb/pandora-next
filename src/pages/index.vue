@@ -1,4 +1,11 @@
 <template>
+  <div class="index">
+    <div class="index-content">
+      <div class="index-title">PANDORA</div>
+      <div class="index-version">ALPHA V0.0.1</div>
+      <button class="index-start">Get Start</button>
+    </div>
+  </div>
   <div>
     <h1>Welcome to Pandora World!</h1>
     <template v-if="!loadPlayer.name">
@@ -82,3 +89,48 @@ const select = () => {
   router.push('/lobby')
 }
 </script>
+<style scoped>
+.index {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: url('~/assets/images/index_cover.png') bottom/cover no-repeat;
+}
+
+.index-content {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.index-title {
+  color: #fefefe;
+  font-size: 8em;
+  line-height: 0.625em;
+  font-weight: 700;
+}
+
+.index-version {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.5em;
+  align-self: flex-end;
+  margin-bottom: 2em;
+}
+
+.index-start {
+  border: 2px solid #fefefe;
+  font-size: 1.5em;
+  background-color: transparent;
+  color: #fefefe;
+  padding: 12px 4em;
+  transition: all 0.25s ease;
+}
+
+.index-start:hover {
+  background-color: #fefefe;
+  color: #222;
+  cursor: pointer;
+}
+</style>

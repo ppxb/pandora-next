@@ -1,0 +1,9 @@
+* {
+  user-select: none;
+  font-family: 'Teko';
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
