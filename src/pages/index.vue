@@ -4,7 +4,8 @@
     <div class="index-content">
       <div class="index-title">PANDORA</div>
       <div class="index-version"># VERSION 0.0.1</div>
-      <button class="index-start" @click="start">SIGN IN</button>
+      <button class="index-button" @click="start">SIGN IN</button>
+      <button class="index-button" @click="start">PATCH LOG</button>
     </div>
     <footer class="index-footer">
       <a href="https://github.com/ppxb" target="_blank">BUILT BY @PPXB</a>
@@ -33,10 +34,11 @@ const start = () => {
 }
 
 .index-slot {
-  flex-shrink: 1;
+  flex: 1;
 }
 
 .index-content {
+  flex: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,26 +55,27 @@ const start = () => {
   color: var(--primary);
   font-size: 1.5em;
   align-self: flex-end;
+  margin-bottom: 4em;
 }
 
-.index-start {
-  margin-top: 4em;
+.index-button {
+  width: 260px;
+  padding: 12px 20px;
   border: 2px solid var(--primary);
   font-size: 1.5em;
+  margin-bottom: 1em;
   background-color: transparent;
   color: var(--primary);
-  padding: 0.5em 4em;
   transition: all 0.25s ease;
 }
 
-.index-start:hover {
+.index-button:hover {
   background-color: var(--primary);
   color: var(--main-text);
   cursor: pointer;
 }
 
 .index-footer {
-  flex-shrink: 1;
   font-size: 1.25em;
 }
 
